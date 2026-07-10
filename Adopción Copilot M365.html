@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Copilot M365 · KPIs Semana 27 Mayo – 02 Junio 2026 · Presentación Ejecutiva</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    .4.1/chart.umd.min.js">
+    </script>
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        :root {
+            --bg: #F0F2F7;
+            --surface: #FFF;
+            --s2: #F7F8FC;
+            --s3: #EEF0F8;
+            --border: #E0E3EF;
+            --text: #1A1D2E;
+            --muted: #5A6080;
+            --dim: #9AA0BB;
+            --green: #0B7A4E;
+            --gbg: #ECFDF5;
+            --gbd: #A7F3D0;
+            --red: #B91C1C;
+            --rbg: #FEF2F2;
+            --rbd: #FECACA;
+            --amber: #92540A;
+            --abg: #FFFBEB;
+            --abd: #FCD34D;
+            --banca: #1A3A6C;
+            --banca-bg: #EEF4FB;
+            --banca-bd: #93C5FD;
+            --seg: #7C3A0E;
+            --seg-bg: #FDF3EA;
+            --seg-bd: #F5CBA7;
+            --purp: #5B5EA7;
+            --purp-bg: #ECEEFF;
+            --viva: #6B21A8;
+            --viva-bg: #FAF5FF;
+            --viva-bd: #D8B4FE;
+            --curr: #2D6A4F;
+            --curr-bg: #D8F3DC;
+            --curr-bd: #74C69D;
+            --font: 'Plus Jakarta Sans', sans-serif;
+            --mono: 'JetBrains Mono', monospace;
+            --slide-bg: #FFFFFF;
+            --shadow-card: 0 4px 12px rgba(0,0,0,0.06);
+            --shadow-card-hover: 0 8px 24px rgba(0,0,0,0.10);
+        }
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--font);
+            overflow: hidden;
+            height: 100vh;
+        }
+        .presentation {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 20px 28px 28px;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 0 14px;
+            border-bottom: 2px solid var(--border);
+            flex-shrink: 0;
+        }
+        .topbar-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .topbar-logo {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #5558af, #7c5cfc);
+            border-radius: 12px;
+            display: grid;
+            place-items: center;
+            font-size: 20px;
+            flex-shrink: 0;
+            box-shadow: 0 4px 14px rgba(85, 88, 175, .25);
+        }
+        .topbar-title {
+            font-size: 17px;
+            font-weight: 800;
+            letter-spacing: -.4px;
+        }
+        .topbar-sub {
+            font-size: 10px;
+            color: var(--muted);
+            font-weight: 500;
+            margin-top: -1px;
+        }
+        .topbar-right {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+        .topbar-pill {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 4px 12px;
+            font-size: 10px;
+            color: var(--muted);
+            font-weight: 500;
+        }
+        .topbar-pill strong {
+            display: block;
+            font-size: 13px;
+            font-weight: 800;
+            color: var(--text);
+            margin-top: 0px;
+        }
+        .topbar-pill.curr {
+            border-color: var(--curr-bd);
+            background: var(--curr-bg);
+        }
+        .topbar-pill.curr strong {
+            color: var(--curr);
+        }
+        .slides-container {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+            margin-top: 16px;
+            border-radius: 20px;
+            background: var(--slide-bg);
+            border: 1px solid var(--border);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+        }
+        .slides-track {
+            display: flex;
+            height: 100%;
+            transition: transform 0.55s cubic-bezier(.22, 1, .36, 1);
+            will-change: transform;
+        }
+        .slide {
+            flex: 0 0 100%;
+            height: 100%;
+            overflow-y: auto;
+            padding: 32px 40px 28px;
+            scrollbar-width: thin;
+        }
+        .slide::-webkit-scrollbar {
+            width: 4px;
+        }
+        .slide::-webkit-scrollbar-track {
+            background: var(--s2);
+            border-radius: 4px;
+        }
+        .slide::-webkit-scrollbar-thumb {
+            background: var(--dim);
+            border-radius: 4px;
+        }
+        .slide-nav {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            padding: 14px 0 4px;
+            flex-shrink: 0;
+        }
+        .nav-btn {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 8px 18px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text);
+            cursor: pointer;
+            transition: all .2s;
+            font-family: var(--font);
+        }
+        .nav-btn:hover {
+            background: var(--s2);
+            border-color: var(--dim);
+            transform: scale(1.02);
+        }
+        .nav-btn:disabled {
+            opacity: .3;
+            cursor: default;
+            transform: none;
+        }
+        .nav-dots {
+            display: flex;
+            gap: 8px;
+        }
+        .nav-dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: var(--border);
+            border: none;
+            cursor: pointer;
+            transition: background .25s, transform .2s;
+            padding: 0;
+        }
+        .nav-dot.active {
+            background: var(--banca);
+            transform: scale(1.2);
+        }
+        .nav-dot:hover:not(.active) {
+            background: var(--dim);
+        }
+        .slide-counter {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--muted);
+            font-family: var(--mono);
+            min-width: 48px;
+            text-align: center;
+        }
+        /* ── Slide 1: Cover ── */
+        .cover {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            text-align: center;
+            padding: 20px;
+        }
+        .cover-icon {
+            font-size: 72px;
+            margin-bottom: 12px;
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+        .cover-title {
+            font-size: 44px;
+            font-weight: 800;
+            letter-spacing: -1.5px;
+            background: linear-gradient(135deg, #1A3A6C, #5B5EA7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 6px;
+        }
+        .cover-sub {
+            font-size: 18px;
+            font-weight: 500;
+            color: var(--muted);
+            margin-bottom: 24px;
+        }
+        .cover-stats {
+            display: flex;
+            gap: 40px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 8px;
+        }
+        .cover-stat {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 16px 28px;
+            min-width: 120px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, .05);
+        }
+        .cover-stat .num {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--banca);
+        }
+        .cover-stat .num.seg {
+            color: var(--seg);
+        }
+        .cover-stat .num.viva {
+            color: var(--viva);
+        }
+        .cover-stat .label {
+            font-size: 11px;
+            color: var(--muted);
+            font-weight: 500;
+            margin-top: 2px;
+        }
+        .cover-date {
+            font-size: 13px;
+            color: var(--dim);
+            font-weight: 500;
+            margin-top: 20px;
+            letter-spacing: 1px;
+        }
+        /* ── Slide 2 (NUEVA): Apps arriba + distribución de licencias ── */
+        .s2-title {
+            font-size: 26px;
+            font-weight: 800;
+            margin-bottom: 4px;
+            letter-spacing: -.5px;
+        }
+        .s2-sub {
+            font-size: 13px;
+            color: var(--muted);
+            margin-bottom: 18px;
+        }
+        .s2-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+        .s2-card {
+            background: var(--surface);
+            border-radius: 16px;
+            padding: 24px 26px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-card);
+        }
+        .s2-card .hdr {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            border-bottom: 2px solid var(--s3);
+            padding-bottom: 12px;
+        }
+        .s2-card .hdr .badge-area {
+            font-size: 11px;
+            font-weight: 700;
+            padding: 2px 12px;
+            border-radius: 12px;
+            background: var(--s2);
+            color: var(--muted);
+            margin-left: auto;
+        }
+        .s2-card .hdr .badge-area.banca-bg {
+            background: var(--banca-bg);
+            color: var(--banca);
+        }
+        .s2-card .hdr .badge-area.seg-bg {
+            background: var(--seg-bg);
+            color: var(--seg);
+        }
+        .s2-card .total-licencias {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            padding: 6px 12px;
+            background: var(--s2);
+            border-radius: 8px;
+            display: inline-block;
+        }
+        .s2-card .total-licencias.banca-total {
+            color: var(--banca);
+            background: var(--banca-bg);
+        }
+        .s2-card .total-licencias.seg-total {
+            color: var(--seg);
+            background: var(--seg-bg);
+        }
+        .tools-section-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--muted);
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+        }
+        .tool-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px 18px;
+            margin-bottom: 20px;
+        }
+        .tool-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 13px;
+            padding: 3px 0;
+        }
+        .tool-item .tool-name {
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .tool-item .tool-name .tool-icon {
+            font-size: 18px;
+            line-height: 1;
+        }
+        .tool-item .tool-pct {
+            font-weight: 700;
+            font-family: var(--mono);
+            font-size: 12px;
+        }
+        .tool-item .tool-pct.banca {
+            color: var(--banca);
+        }
+        .tool-item .tool-pct.seg {
+            color: var(--seg);
+        }
+        .tool-minibar {
+            width: 70px;
+            height: 5px;
+            background: var(--s3);
+            border-radius: 99px;
+            overflow: hidden;
+            margin-left: 6px;
+            flex-shrink: 0;
+        }
+        .tool-minibar .fill {
+            height: 100%;
+            border-radius: 99px;
+        }
+        .tool-minibar .fill.banca {
+            background: var(--banca);
+        }
+        .tool-minibar .fill.seg {
+            background: var(--seg);
+        }
+        .tool-row {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex: 1;
+            justify-content: flex-end;
+        }
+        .area-list {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            margin-top: 4px;
+        }
+        .area-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 4px 0;
+            font-size: 13px;
+            border-bottom: 1px solid var(--s3);
+        }
+        .area-item:last-child {
+            border-bottom: none;
+        }
+        .area-item .name {
+            font-weight: 500;
+        }
+        .area-item .count {
+            font-weight: 700;
+            font-family: var(--mono);
+            font-size: 12px;
+            color: var(--muted);
+        }
+        .area-item .count.banca {
+            color: var(--banca);
+        }
+        .area-item .count.seg {
+            color: var(--seg);
+        }
+        .area-item .activos {
+            font-weight: 700;
+            font-family: var(--mono);
+            font-size: 12px;
+            color: var(--text);
+            margin-left: 8px;
+        }
+        .table-col-header {
+            display: flex;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--dim);
+            margin-bottom: 8px;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 4px;
+        }
+        .table-col-header span:first-child {
+            flex: 1;
+        }
+        .table-col-header span:last-child {
+            width: 80px;
+            text-align: right;
+        }
+        /* ── Slide 3 (NUEVA): Metric Compliance ── */
+        .s3-title {
+            font-size: 26px;
+            font-weight: 800;
+            margin-bottom: 4px;
+            letter-spacing: -.5px;
+        }
+        .s3-sub {
+            font-size: 13px;
+            color: var(--muted);
+            margin-bottom: 22px;
+        }
+        .compliance-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        .comp-card {
+            background: var(--surface);
+            border-radius: 14px;
+            padding: 20px 22px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-card);
+            display: flex;
+            flex-direction: column;
+        }
+        .comp-card .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+        .comp-card .label {
+            font-size: 14px;
+            font-weight: 700;
+        }
+        .comp-card .badge {
+            font-size: 10px;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 20px;
+        }
+        .badge-ok {
+            background: var(--gbg);
+            color: var(--green);
+            border: 1px solid var(--gbd);
+        }
+        .badge-no {
+            background: var(--rbg);
+            color: var(--red);
+            border: 1px solid var(--rbd);
+        }
+        .comp-card .value {
+            font-size: 38px;
+            font-weight: 800;
+            letter-spacing: -1px;
+            line-height: 1.2;
+        }
+        .comp-card .value.banca {
+            color: var(--banca);
+        }
+        .comp-card .value.seg {
+            color: var(--seg);
+        }
+        .comp-card .value.red {
+            color: var(--red);
+        }
+        .comp-card .meta {
+            font-size: 11px;
+            color: var(--dim);
+            margin-top: 2px;
+        }
+        .comp-card .desc {
+            font-size: 12px;
+            color: var(--muted);
+            margin-top: 2px;
+            line-height: 1.5;
+        }
+        .comp-bar {
+            height: 5px;
+            background: var(--s3);
+            border-radius: 99px;
+            overflow: hidden;
+            margin: 8px 0 4px;
+        }
+        .comp-bar .fill {
+            height: 100%;
+            border-radius: 99px;
+            transition: width 1.2s cubic-bezier(.16, 1, .3, 1);
+        }
+        .comp-bar .fill.banca {
+            background: linear-gradient(90deg, var(--banca), #4F7EC6);
+        }
+        .comp-bar .fill.seg {
+            background: linear-gradient(90deg, var(--seg), #C17B4E);
+        }
+        .comp-bar .fill.red {
+            background: linear-gradient(90deg, var(--red), #E05A5A);
+        }
+        /* ── Slide 4 (NUEVA): Viva Insights Enfocado en Casos de Uso ── */
+        .s4-title {
+            font-size: 26px;
+            font-weight: 800;
+            margin-bottom: 4px;
+            letter-spacing: -.5px;
+            color: var(--viva);
+        }
+        .s4-sub {
+            font-size: 13px;
+            color: var(--muted);
+            margin-bottom: 18px;
+        }
+        .viva-example-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+        .viva-example-card {
+            background: var(--surface);
+            border-radius: 16px;
+            padding: 22px 24px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-card);
+            position: relative;
+            transition: box-shadow 0.2s ease;
+        }
+        .viva-example-card:hover {
+            box-shadow: var(--shadow-card-hover);
+        }
+        .viva-example-card .card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 700;
+            font-size: 16px;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--s3);
+        }
+        .viva-example-card .card-header.admin-header {
+            color: var(--muted);
+            border-color: var(--border);
+        }
+        .viva-example-card .card-header.viva-header {
+            color: var(--viva);
+            border-color: var(--viva-bd);
+        }
+        .viva-example-card .card-header .badge-compare {
+            font-size: 10px;
+            font-weight: 700;
+            padding: 1px 12px;
+            border-radius: 12px;
+            background: var(--s2);
+            color: var(--dim);
+            margin-left: auto;
+        }
+        .viva-example-card .card-header .badge-compare.admin-badge {
+            background: var(--s3);
+        }
+        .viva-example-card .card-header .badge-compare.viva-badge {
+            background: var(--viva-bg);
+            color: var(--viva);
+        }
+        .viva-example-card .data-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 0;
+            font-size: 14px;
+            border-bottom: 1px solid var(--s3);
+        }
+        .viva-example-card .data-row:last-child {
+            border-bottom: none;
+        }
+        .viva-example-card .data-row .label {
+            color: var(--muted);
+            font-weight: 500;
+        }
+        .viva-example-card .data-row .value {
+            font-weight: 700;
+            font-family: var(--mono);
+        }
+        .viva-example-card .data-row .value.admin-value {
+            color: var(--text);
+        }
+        .viva-example-card .data-row .value.viva-value {
+            color: var(--viva);
+        }
+        .viva-example-card .insight-box {
+            margin-top: 16px;
+            padding: 14px 16px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            line-height: 1.5;
+        }
+        .viva-example-card .insight-box.gap-box {
+            background: var(--rbg);
+            border-left: 4px solid var(--red);
+            color: var(--red);
+        }
+        .viva-example-card .insight-box.impact-box {
+            background: var(--viva-bg);
+            border-left: 4px solid var(--viva);
+            color: var(--viva);
+        }
+        .viva-bottom {
+            background: var(--viva-bg);
+            border: 1px solid var(--viva-bd);
+            border-radius: 14px;
+            padding: 16px 22px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-top: 4px;
+        }
+        .viva-bottom .vb-icon {
+            font-size: 28px;
+            flex-shrink: 0;
+        }
+        .viva-bottom .vb-text {
+            font-size: 13px;
+            line-height: 1.6;
+        }
+        .viva-bottom .vb-text strong {
+            color: var(--viva);
+        }
+        .viva-bottom .vb-tag {
+            background: var(--viva);
+            color: #fff;
+            border-radius: 20px;
+            padding: 4px 14px;
+            font-size: 10px;
+            font-weight: 700;
+            flex-shrink: 0;
+            letter-spacing: .5px;
+        }
+        /* ── Responsive ── */
+        @media (max-width: 900px) {
+            .s2-grid,
+            .compliance-grid,
+            .viva-example-grid {
+                grid-template-columns: 1fr;
+            }
+            .slide {
+                padding: 24px 20px 20px;
+            }
+            .cover-title {
+                font-size: 30px;
+            }
+            .cover-stats {
+                gap: 16px;
+            }
+            .cover-stat {
+                padding: 12px 18px;
+                min-width: 80px;
+            }
+            .cover-stat .num {
+                font-size: 24px;
+            }
+            .topbar-title {
+                font-size: 14px;
+            }
+            .topbar-pill {
+                padding: 2px 8px;
+            }
+            .topbar-pill strong {
+                font-size: 11px;
+            }
+            .presentation {
+                padding: 12px 14px 14px;
+            }
+            .tool-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        @media (max-width: 600px) {
+            .topbar {
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+            .topbar-right {
+                flex-wrap: wrap;
+                gap: 6px;
+            }
+            .cover-title {
+                font-size: 24px;
+            }
+            .cover-sub {
+                font-size: 14px;
+            }
+            .slide {
+                padding: 16px 14px 16px;
+            }
+            .comp-card .value {
+                font-size: 28px;
+            }
+            .s2-title,
+            .s3-title,
+            .s4-title {
+                font-size: 20px;
+            }
+        }
+        .scroll-hint {
+            font-size: 10px;
+            color: var(--dim);
+            text-align: center;
+            margin-top: 4px;
+            font-weight: 500;
+            letter-spacing: .5px;
+            display: none;
+        }
+        @media (max-height: 700px) {
+            .scroll-hint {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation">
+        <!-- TOP BAR -->
+        <div class="topbar">
+            <div class="topbar-left">
+                <div class="topbar-logo">🤖</div>
+                <div>
+                    <div class="topbar-title">Copilot M365 · KPIs Semanales</div>
+                    <div class="topbar-sub">KPIs Semana 27 Mayo – 02 Junio 2026 · Reporte de la semana anterior</div>
+                </div>
+            </div>
+            <div class="topbar-right">
+                <div class="topbar-pill curr"><strong>08 Jun</strong>Semana actual</div>
+                <div class="topbar-pill"><strong>🏦 125</strong>Banca</div>
+                <div class="topbar-pill"><strong>🛡️ 58</strong>Seguros</div>
+                <div class="topbar-pill"><strong>183</strong>Total</div>
+            </div>
+        </div>
+        <!-- SLIDES CONTAINER -->
+        <div class="slides-container">
+            <div class="slides-track" id="slidesTrack">
+                <!-- ─── SLIDE 1: COVER ─── -->
+                <div class="slide">
+                    <div class="cover">
+                        <div class="cover-icon">🚀</div>
+                        <div class="cover-title">Adopción Copilot M365</div>
+                        <div class="cover-sub">Banca y Seguros · Semana 27 Mayo – 02 Junio 2026</div>
+                        <div class="cover-stats">
+                            <div class="cover-stat">
+                                <div class="num">125</div>
+                                <div class="label">🏦 Licencias Banca</div>
+                            </div>
+                            <div class="cover-stat">
+                                <div class="num seg">58</div>
+                                <div class="label">🛡️ Licencias Seguros</div>
+                            </div>
+                            <div class="cover-stat">
+                                <div class="num viva">183</div>
+                                <div class="label">📊 Total licencias</div>
+                            </div>
+                        </div>
+                        <div class="cover-date">📅 Reporte correspondiente a la semana del 27 Mayo – 02 Junio 2026 (Semana actual: 08 Junio)</div>
+                    </div>
+                </div>
+                <!-- ─── SLIDE 2: APPS ARRIBA + DISTRIBUCIÓN DE LICENCIAS ─── -->
+                <div class="slide">
+                    <div class="s2-title">📌 Uso de Copilot por aplicación y distribución de licencias</div>
+                    <div class="s2-sub">Herramientas más utilizadas y detalle de licencias por área (Banca y Seguros).</div>
+                    <div class="s2-grid">
+                        <!-- Banca -->
+                        <div class="s2-card">
+                            <div class="hdr">
+                                🏦 Banca
+                                <span class="badge-area banca-bg">125 licencias</span>
+                            </div>
+                            <div class="total-licencias banca-total">Total Banca: 125 licencias activas</div>                            
+                            <div class="tools-section-title">🔧 Herramientas más usadas (% de usuarios)</div>
+                            <div class="tool-grid">
+                                <div class="tool-item"><span class="tool-name"><span class="tool-icon">💻</span> Teams</span><div class="tool-row"><span class="tool-pct banca">94.8%</span><div class="tool-minibar"><div class="fill banca" style="width:94.8%"></div></div></div></div>
+                                <div class="tool-item"><span class="tool-name"><span class="tool-icon">💬</span> Chat (work)</span><div class="tool-row"><span class="tool-pct banca">94.0%</span><div class="tool-minibar"><div class="fill banca" style="width:94%"></div></div></div></div>
+                                <div class="tool-item"><span class="tool-name"><span class="tool-icon">📧</span> Outlook</span><div class="tool-row"><span class="tool-pct banca">88.8%</span><div class="tool-minibar"><div class="fill banca" style="width:88.8%"></div></div></div></div>
+                                <div class="tool-item"><span class="tool-name"><span class="tool-icon">📝</span> Word</span><div class="tool-row"><span class="tool-pct banca">78.4%</span><div class="tool-minibar"><div class="fill banca" style="width:78.4%"></div></div></div></div>
+                                <div class="tool-item"><span class="tool-name"><span class="tool-icon">📊</span> PowerPoint</span><div class="tool-row"><span class="tool-pct banca">79.3%</span><div class="tool-minibar"><div class="fill banca" style="width:79.3%"></div></div></div></div>
+                                <div class="tool-item"><span class="tool-name"><span class="tool-icon">📉</span> Excel</span><div class="tool-row"><span class="tool-pct banca">67.2%</span><div class="tool-minibar"><div class="fill banca" style="width:67.2%"></div></div></div></div>
+                            </div>
+                            <div style="font-size:12px;font-weight:600;color:var(--banca);margin-bottom:8px;">Áreas con mayor número de licencias</div>
+                            <div class="table-col-header">
+                                <span>Área</span>
+                                <span style="display:flex;gap:12px;">
+                                    <span style="width:60px;text-align:right;">Lic.</span>
+                                </span>
+                            </div>
+                            <div class="area-list">
+                                <div class="area-item"><span class="name">RH Banca</span><div><span class="count banca">57</span></div></div>
+                                <div class="area-item"><span class="name">Dir. Ejec. Op. y Procesos</span><div><span class="count banca">11</span></div></div>
+                                <div class="area-item"><span class="name">Des. Servicios Bancarios</span><div><span class="count banca">9</span></div></div>
+                                <div class="area-item"><span class="name">Dir. Seg. e Inteligencia</span><div><span class="count banca">7</span></div></div>
+                                <div class="area-item"><span class="name">Banca Riesgos IDR</span><div><span class="count banca">7</span></div></div>
+                                <div class="area-item"><span class="name">Oficina de Proyectos</span><div><span class="count banca">4</span></div></div>
+                                <div class="area-item"><span class="name">Arquitectura TI</span><div><span class="count banca">3</span></div></div>
+                                <div class="area-item"><span class="name">Dir. Seguridad de Información</span><div><span class="count banca">3</span></div></div>
+                                <div class="area-item"><span class="name">Des. Inteligencia de Negocios</span><div><span class="count banca">2</span></div></div>
+                                <div class="area-item"><span class="name">Seguridad Tech.</span><div><span class="count banca">2</span></div></div>
+                                <div class="area-item" style="border-bottom: none; color: var(--muted); font-style: italic;"><span class="name">Otras áreas (distribución restante)</span><div><span class="count banca">20</span></div></div>
+                            </div>
+                        </div>
+                        <!-- Seguros -->
+                        <div class="s2-card">
+                            <div class="hdr">
+                                🛡️ Seguros
+                                <span class="badge-area seg-bg">58 licencias</span>
+                            </div>
+                            <div class="total-licencias seg-total">Total Seguros: 58 licencias activas</div>
+                            <div class="tools-section-title">🔧 Herramientas más usadas (% de usuarios)</div>
+                            <div class="tool-grid">
+                                <div class="tool-item"><span class="tool-name"><span class="tool-icon">💻</span> Teams</span><div class="tool-row"><span class="tool-pct seg">98.2%</span><div class="tool-minibar"><div class="fill seg" style="width:98.2%"></div></div></div></div>
+                                <div class="tool-item"><span class="tool-name"><span class="tool-icon">💬</span> Chat (work)</span><div class="tool-row"><span class="tool-pct seg">89.1%</span><div class="tool-minibar"><div class="fill seg" style="width:89.1%"></div></div></div></div>
+                                <div class="tool-item"><span class="tool-name"><span class="tool-icon">📧</span> Outlook</span><div class="tool-row"><span class="tool-pct seg">81.8%</span><div class="tool-minibar"><div class="fill seg" style="width:81.8%"></div></div></div></div>
+                                <div class="tool-item"><span class="tool-name"><span class="tool-icon">📝</span> Word</span><div class="tool-row"><span class="tool-pct seg">74.5%</span><div class="tool-minibar"><div class="fill seg" style="width:74.5%"></div></div></div></div>
+                                <div class="tool-item"><span class="tool-name"><span class="tool-icon">📉</span> Excel</span><div class="tool-row"><span class="tool-pct seg">72.7%</span><div class="tool-minibar"><div class="fill seg" style="width:72.7%"></div></div></div></div>
+                                <div class="tool-item"><span class="tool-name"><span class="tool-icon">📊</span> PowerPoint</span><div class="tool-row"><span class="tool-pct seg">65.5%</span><div class="tool-minibar"><div class="fill seg" style="width:65.5%"></div></div></div></div>
+                            </div>
+                            <div style="font-size:12px;font-weight:600;color:var(--seg);margin-bottom:8px;">Áreas con mayor número de licencias</div>
+                            <div class="table-col-header">
+                                <span>Área</span>
+                                <span style="display:flex;gap:12px;">
+                                    <span style="width:60px;text-align:right;">Lic.</span>
+                                </span>
+                            </div>
+                            <div class="area-list">
+                                <div class="area-item"><span class="name">Seguros Oferta de Valor</span><div><span class="count seg">20</span></div></div>
+                                <div class="area-item"><span class="name">Admón. Operaciones</span><div><span class="count seg">11</span></div></div>
+                                <div class="area-item"><span class="name">Seguros Casos QA</span><div><span class="count seg">6</span></div></div>
+                                <div class="area-item"><span class="name">Seguros Casos RH</span><div><span class="count seg">5</span></div></div>
+                                <div class="area-item"><span class="name">Dir. Adm. Indemnizaciones</span><div><span class="count seg">5</span></div></div>
+                                <div class="area-item"><span class="name">Dir. Seg. e Inteligencia</span><div><span class="count seg">4</span></div></div>
+                                <div class="area-item" style="border-bottom: none; color: var(--muted); font-style: italic;"><span class="name">Otras áreas (distribución restante)</span><div><span class="count seg">7</span></div></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="scroll-hint">⬇ Desplaza para ver más</div>
+                </div>
+                <!-- ─── SLIDE 3: CUMPLIMIENTO DE MÉTRICAS ─── -->
+                <div class="slide">
+                    <div class="s3-title">✅ Cumplimiento de métricas esperadas</div>
+                    <div class="s3-sub">Cada indicador compara el resultado real contra la meta establecida para Banca y Seguros</div>
+                    <div class="compliance-grid">
+                        <!-- Banca: Adopción básica -->
+                        <div class="comp-card">
+                            <div class="header">
+                                <span class="label">🏦 Banca · Adopción básica</span>
+                                <span class="badge badge-ok">✓ Cumple</span>
+                            </div>
+                            <div class="value banca">82.4%</div>
+                            <div class="meta">103 de 125 licencias activas · Meta ≥70%</div>
+                            <div class="comp-bar"><div class="fill banca" style="width:0%"></div></div>
+                            <div class="desc">% de licencias con al menos 1 prompt en la semana</div>
+                        </div>
+                        <!-- Seguros: Adopción básica -->
+                        <div class="comp-card">
+                            <div class="header">
+                                <span class="label">🛡️ Seguros · Adopción básica</span>
+                                <span class="badge badge-ok">✓ Cumple</span>
+                            </div>
+                            <div class="value seg">84.5%</div>
+                            <div class="meta">49 de 58 licencias activas · Meta ≥70%</div>
+                            <div class="comp-bar"><div class="fill seg" style="width:0%"></div></div>
+                            <div class="desc">% de licencias con al menos 1 prompt en la semana</div>
+                        </div>
+                        <!-- Banca: Frecuencia recurrente -->
+                        <div class="comp-card">
+                            <div class="header">
+                                <span class="label">🏦 Banca · Frecuencia recurrente</span>
+                                <span class="badge badge-ok">✓ Cumple</span>
+                            </div>
+                            <div class="value banca">71.8%</div>
+                            <div class="meta">74 de 103 activos · Meta ≥50%</div>
+                            <div class="comp-bar"><div class="fill banca" style="width:0%"></div></div>
+                            <div class="desc">% activos con ≥3 días de uso en la semana</div>
+                        </div>
+                        <!-- Seguros: Frecuencia recurrente -->
+                        <div class="comp-card">
+                            <div class="header">
+                                <span class="label">🛡️ Seguros · Frecuencia recurrente</span>
+                                <span class="badge badge-no">⚠ Por debajo</span>
+                            </div>
+                            <div class="value red">44.9%</div>
+                            <div class="meta">22 de 49 activos · Meta ≥50%</div>
+                            <div class="comp-bar"><div class="fill red" style="width:0%"></div></div>
+                            <div class="desc">% activos con ≥3 días de uso en la semana · <strong style="color:var(--red)">Atención prioritaria</strong></div>
+                        </div>
+                        <!-- Banca: ≥3 herramientas -->
+                        <div class="comp-card">
+                            <div class="header">
+                                <span class="label">🏦 Banca · ≥3 herramientas</span>
+                                <span class="badge badge-ok">✓ Cumple</span>
+                            </div>
+                            <div class="value banca">97.4%</div>
+                            <div class="meta">113 de 116 en reporte · Meta ≥40%</div>
+                            <div class="comp-bar"><div class="fill banca" style="width:0%"></div></div>
+                            <div class="desc">% usuarios usando ≥3 apps de Copilot esta semana</div>
+                        </div>
+                        <!-- Seguros: ≥3 herramientas -->
+                        <div class="comp-card">
+                            <div class="header">
+                                <span class="label">🛡️ Seguros · ≥3 herramientas</span>
+                                <span class="badge badge-ok">✓ Cumple</span>
+                            </div>
+                            <div class="value seg">94.5%</div>
+                            <div class="meta">52 de 55 en reporte · Meta ≥40%</div>
+                            <div class="comp-bar"><div class="fill seg" style="width:0%"></div></div>
+                            <div class="desc">% usuarios usando ≥3 apps de Copilot esta semana</div>
+                        </div>
+                    </div>
+                    <div class="scroll-hint">⬇ Desplaza para ver más</div>
+                </div>
+                <!-- ─── SLIDE 4: VIVA INSIGHTS (CASOS DE USO ESPECÍFICOS) ─── -->
+                <div class="slide">
+                    <div class="s4-title">🤖 ¿Cómo usan la IA los colaboradores? (Viva Insights)</div>
+                    <div class="s4-sub">Del simple seguimiento de uso a la medición de casos de uso específicos de IA.</div>
+                    <!-- EJEMPLO VISUAL DE COMPARACIÓN -->
+                    <div class="viva-example-grid">
+                        <div class="viva-example-card">
+                            <div class="card-header admin-header">
+                                <span>📋 Microsoft 365 Admin Center</span>
+                                <span class="badge-compare admin-badge">Mide el uso</span>
+                            </div>
+                            <div class="data-row"><span class="label">Prompts enviados (semana)</span><span class="value admin-value">3,575</span></div>
+                            <div class="data-row"><span class="label">Usuarios activos</span><span class="value admin-value">103</span></div>
+                            <div class="data-row"><span class="label">Herramientas utilizadas</span><span class="value admin-value">12</span></div>
+                            <div class="data-row"><span class="label">Tasa de adopción</span><span class="value admin-value">82.4%</span></div>
+                            <div class="insight-box gap-box">
+                                ❌ <strong>Pero no sabemos</strong> si estos prompts resolvieron tareas, ahorraron tiempo o mejoraron la colaboración.
+                            </div>
+                        </div>
+                        <div class="viva-example-card">
+                            <div class="card-header viva-header">
+                                <span>💡 Microsoft Viva Insights</span>
+                                <span class="badge-compare viva-badge">Mide el impacto</span>
+                            </div>
+                            <div class="data-row"><span class="label">📧 Correo · Resúmenes con Copilot</span><span class="value viva-value">42% de los correos</span></div>
+                            <div class="data-row"><span class="label">📊 Excel · Fórmulas generadas con IA</span><span class="value viva-value">108 fórmulas / semana</span></div>
+                            <div class="data-row"><span class="label">🤖 Agentes · Creación en Copilot Studio</span><span class="value viva-value">15 agentes creados</span></div>
+                            <div class="data-row"><span class="label">💬 Teams · Resúmenes de reuniones</span><span class="value viva-value">67 reuniones resumidas</span></div>
+                            <div class="insight-box impact-box">
+                                ✅ <strong>Sabemos que</strong> los colaboradores están usando Copilot para automatizar tareas clave de oficina y liberar tiempo para trabajo estratégico.
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Bottom summary -->
+                    <div class="viva-bottom">
+                        <div class="vb-icon">🎯</div>
+                        <div class="vb-text">
+                            <strong>Viva Insights</strong> va más allá de los contadores de uso. Identifica el <strong>cómo</strong> se aplica la IA (resúmenes, generación de fórmulas, creación de agentes) y correlaciona estas acciones con el <strong>impacto real</strong> en la productividad y el bienestar.
+                        </div>
+                        <div class="vb-tag">✦ Casos de uso IA</div>
+                    </div>
+                    <div style="margin-top:10px;display:flex;gap:12px;flex-wrap:wrap;font-size:11px;color:var(--dim);">
+                        <span>🔒 Privacidad by design · datos agregados</span>
+                        <span>📊 Correlación uso-impacto</span>
+                        <span>🤖 Casos de uso específicos</span>
+                    </div>
+                    <div class="scroll-hint">⬇ Desplaza para ver más</div>
+                </div>
+            </div><!-- /slides-track -->
+        </div><!-- /slides-container -->
+        <!-- NAVIGATION -->
+        <div class="slide-nav">
+            <button class="nav-btn" id="prevBtn" disabled>◀ Anterior</button>
+            <div class="nav-dots" id="navDots">
+                <button class="nav-dot active" data-i="0"></button>
+                <button class="nav-dot" data-i="1"></button>
+                <button class="nav-dot" data-i="2"></button>
+                <button class="nav-dot" data-i="3"></button>
+            </div>
+            <span class="slide-counter" id="slideCounter">1 / 4</span>
+            <button class="nav-btn" id="nextBtn">Siguiente ▶</button>
+        </div>
+    </div><!-- /presentation -->
+    <script>
+        (function() {
+            const track = document.getElementById('slidesTrack');
+            const dots = document.querySelectorAll('.nav-dot');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const counter = document.getElementById('slideCounter');
+            const totalSlides = 4;
+            let current = 0;
+            function updateSlide(index) {
+                if (index < 0) index = 0;
+                if (index >= totalSlides) index = totalSlides - 1;
+                current = index;
+                track.style.transform = `translateX(-${current * 100}%)`;
+                prevBtn.disabled = current === 0;
+                nextBtn.disabled = current === totalSlides - 1;
+                dots.forEach((d, i) => d.classList.toggle('active', i === current));
+                counter.textContent = `${current + 1} / ${totalSlides}`;
+            }
+            dots.forEach(dot => {
+                dot.addEventListener('click', () => {
+                    updateSlide(parseInt(dot.dataset.i));
+                });
+            });
+            prevBtn.addEventListener('click', () => updateSlide(current - 1));
+            nextBtn.addEventListener('click', () => updateSlide(current + 1));
+            // Keyboard
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    updateSlide(current + 1);
+                } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    updateSlide(current - 1);
+                }
+            });
+            // Touch swipe
+            let startX = 0;
+            const container = document.querySelector('.slides-container');
+            container.addEventListener('touchstart', (e) => { startX = e.touches[0].clientX; });
+            container.addEventListener('touchend', (e) => {
+                const diff = startX - e.changedTouches[0].clientX;
+                if (Math.abs(diff) > 40) {
+                    if (diff > 0) updateSlide(current + 1);
+                    else updateSlide(current - 1);
+                }
+            });
+            // ── Animate progress bars on slide 3 ──
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const fills = entry.target.querySelectorAll('.comp-bar .fill');
+                        fills.forEach(el => {
+                            const w = el.getAttribute('data-w');
+                            if (w) el.style.width = w + '%';
+                        });
+                    } else {
+                        const fills = entry.target.querySelectorAll('.comp-bar .fill');
+                        fills.forEach(el => {
+                            el.style.width = '0%';
+                        });
+                    }
+                });
+            }, { threshold: 0.3 });
+            const slide3 = document.querySelector('.slide:nth-child(3)');
+            if (slide3) observer.observe(slide3);
+            // Pre-set data-w for slide3 bars
+            document.querySelectorAll('.comp-bar .fill').forEach(el => {
+                const parent = el.closest('.comp-card');
+                if (parent) {
+                    const val = parent.querySelector('.value');
+                    if (val) {
+                        const num = parseFloat(val.textContent);
+                        if (!isNaN(num)) {
+                            el.setAttribute('data-w', String(num));
+                        }
+                    }
+                }
+            });
+            // ── Initialize ──
+            updateSlide(0);
+            setTimeout(() => {
+                const s3 = document.querySelector('.slide:nth-child(3)');
+                if (s3) {
+                    const fills = s3.querySelectorAll('.comp-bar .fill');
+                    fills.forEach(el => {
+                        const w = el.getAttribute('data-w');
+                        if (w && s3.getBoundingClientRect().top < window.innerHeight && s3.getBoundingClientRect()
+                            .bottom > 0) {
+                            el.style.width = w + '%';
+                        }
+                    });
+                }
+            }, 400);
+        })();
+    </script>
+</body>
+</html>
