@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Copilot M365 · Reporte Final de Adopción</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#F0F2F7;--surface:#FFFFFF;--surface2:#F7F8FC;--surface3:#EEF0F8;--border:#E0E3EF;
+  --text:#1A1D2E;--muted:#5A6080;--dim:#9AA0BB;
+  --banca:#3B82F6;--banca-d:#1D4ED8;--banca-bg:rgba(59,130,246,.1);--banca-bd:rgba(59,130,246,.3);
+  --seg:#F59E0B;--seg-d:#D97706;--seg-bg:rgba(245,158,11,.1);--seg-bd:rgba(245,158,11,.3);
+  --green:#10B981;--gbg:rgba(16,185,129,.12);--gbd:rgba(16,185,129,.35);
+  --red:#EF4444;--rbg:rgba(239,68,68,.12);--rbd:rgba(239,68,68,.35);
+  --amber:#F59E0B;--abg:rgba(245,158,11,.12);--abd:rgba(245,158,11,.35);
+  --purp:#8B5CF6;--purp-bg:rgba(139,92,246,.12);--purp-bd:rgba(139,92,246,.3);
+  --teal:#06B6D4;
+  --font:'Inter',sans-serif;--mono:'JetBrains Mono',monospace;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:100vh;-webkit-font-smoothing:antialiased}
+
+/* ── HERO ── */
+.hero{position:relative;padding:56px 48px 48px;overflow:hidden;border-bottom:1px solid var(--border)}
+.hero-glow{position:absolute;top:-120px;left:50%;transform:translateX(-50%);width:700px;height:400px;background:radial-gradient(ellipse,rgba(59,130,246,.10) 0%,rgba(139,92,246,.06) 40%,transparent 70%);pointer-events:none}
+.hero-inner{max-width:1320px;margin:0 auto;position:relative;z-index:1}
+.hero-top{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:24px;margin-bottom:40px}
+.hero-brand{display:flex;align-items:center;gap:14px}
+.hero-icon{width:52px;height:52px;background:linear-gradient(135deg,var(--banca),var(--purp));border-radius:14px;display:grid;place-items:center;font-size:24px;box-shadow:0 0 32px rgba(59,130,246,.4)}
+.hero-name{font-size:13px;font-weight:600;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:4px}
+.hero-title{font-size:28px;font-weight:900;letter-spacing:-.8px;line-height:1}
+.hero-period{display:flex;align-items:center;gap:8px;margin-top:6px}
+.period-badge{font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;background:var(--purp-bg);color:var(--purp);border:1px solid var(--purp-bd)}
+.hero-meta{text-align:right}
+.hero-date{font-size:12px;color:var(--muted);margin-bottom:4px}
+.hero-lic{font-size:13px;font-weight:600}
+.hero-lic span{color:var(--banca)}
+.hero-lic span.s{color:var(--seg)}
+
+/* HERO METRICS */
+.hero-metrics{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.hm{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:16px 18px;position:relative;overflow:hidden;transition:border-color .2s}
+.hm:hover{border-color:var(--banca-bd)}
+.hm::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+.hm.blue::before{background:linear-gradient(90deg,var(--banca),var(--teal))}
+.hm.gold::before{background:linear-gradient(90deg,var(--seg),#F97316)}
+.hm.green::before{background:linear-gradient(90deg,var(--green),#34D399)}
+.hm.purp::before{background:linear-gradient(90deg,var(--purp),#EC4899)}
+.hm.teal::before{background:linear-gradient(90deg,var(--teal),#10B981)}
+.hm-val{font-size:36px;font-weight:900;letter-spacing:-1.5px;line-height:1;font-family:var(--mono)}
+.hm-val.blue{color:var(--banca)}.hm-val.gold{color:var(--seg)}.hm-val.green{color:var(--green)}.hm-val.purp{color:var(--purp)}.hm-val.teal{color:var(--teal)}
+.hm-label{font-size:11px;color:var(--muted);font-weight:500;margin-top:5px;line-height:1.4}
+.hm-note{font-size:10px;color:var(--dim);margin-top:4px;font-family:var(--mono)}
+
+/* ── WRAP ── */
+.wrap{max-width:1320px;margin:0 auto;padding:40px 48px 80px}
+.slabel{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--dim);margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.slabel::after{content:'';flex:1;height:1px;background:var(--border)}
+.slabel-icon{font-size:14px}
+
+/* ── KPI GRID ── */
+.kpi-master{border:1px solid var(--border);border-radius:18px;overflow:hidden;margin-bottom:36px;background:var(--surface)}
+.kpi-group-headers{display:grid;grid-template-columns:1fr 1fr}
+.kgi{padding:14px 24px;font-size:14px;font-weight:800;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px}
+.kgi.b{background:var(--banca-bg);color:var(--banca);border-right:1px solid var(--border)}
+.kgi.s{background:var(--seg-bg);color:var(--seg)}
+.kgi-sub{font-size:10px;font-weight:500;color:var(--muted);margin-left:auto}
+.kpi-pair{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--border)}
+.kpi-pair:last-child{border-bottom:none}
+.kpc{padding:22px 24px;border-right:1px solid var(--border)}
+.kpc:last-child{border-right:none}
+.kpc.b{border-left:3px solid var(--banca-bd)}
+.kpc.s{border-left:3px solid var(--seg-bd)}
+.kpc.perc-b{border-left:3px solid var(--purp-bd)}
+.kpc.perc-s{border-left:3px solid var(--purp-bd)}
+.kpc-dim{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--dim);margin-bottom:5px}
+.kpc-name{font-size:13px;font-weight:700;color:var(--text);margin-bottom:4px}
+.kpc-desc{font-size:10px;color:var(--muted);margin-bottom:14px}
+.kpc-body{display:flex;align-items:center;gap:14px}
+.kpc-val{font-size:46px;font-weight:900;letter-spacing:-2px;line-height:1;font-family:var(--mono);min-width:110px}
+.kpc-val.bv{color:var(--banca)}.kpc-val.sv{color:var(--seg)}.kpc-val.rv{color:var(--red)}.kpc-val.pv{color:var(--purp)}
+.kpc-right{flex:1}
+.kpc-bar-track{height:4px;background:var(--surface3);border-radius:99px;overflow:hidden;margin-bottom:8px}
+.kpc-bar{height:100%;border-radius:99px;transition:width 1.4s cubic-bezier(.16,1,.3,1)}
+.kpc-bar.bbar{background:linear-gradient(90deg,var(--banca),var(--teal))}
+.kpc-bar.sbar{background:linear-gradient(90deg,var(--seg),#F97316)}
+.kpc-bar.pbar{background:linear-gradient(90deg,var(--purp),#EC4899)}
+.kpc-foot{display:flex;justify-content:space-between;align-items:center}
+.kpc-note{font-size:9px;color:var(--muted);font-family:var(--mono)}
+.badge{font-size:9px;font-weight:700;padding:2px 8px;border-radius:12px}
+.badge-ok{background:var(--gbg);color:var(--green);border:1px solid var(--gbd)}
+.badge-no{background:var(--rbg);color:var(--red);border:1px solid var(--rbd)}
+.badge-am{background:var(--abg);color:var(--amber);border:1px solid var(--abd)}
+.kpc-meta{font-size:10px;color:var(--dim);margin-top:8px;font-family:var(--mono)}
+
+/* ── STAT STRIPS ── */
+.stat-strip{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:36px}
+.ss{background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden}
+.ss-hdr{padding:10px 20px;font-size:12px;font-weight:700;border-bottom:1px solid var(--border)}
+.ss-hdr.b{background:var(--banca-bg);color:var(--banca)}.ss-hdr.s{background:var(--seg-bg);color:var(--seg)}
+.ss-body{display:grid;grid-template-columns:repeat(4,1fr)}
+.ss-item{padding:14px 16px;border-right:1px solid var(--border)}
+.ss-item:last-child{border-right:none}
+.ss-v{font-size:22px;font-weight:800;letter-spacing:-1px;font-family:var(--mono)}
+.ss-l{font-size:10px;color:var(--muted);margin-top:3px}
+
+/* ── CHARTS ── */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:28px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:28px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px 22px}
+.card:hover{border-color:var(--dim)}
+.ct{font-size:13px;font-weight:700;color:var(--text);margin-bottom:2px}
+.cs{font-size:10px;color:var(--muted);margin-bottom:16px}
+.carea{position:relative}
+
+/* ── PERCEPTION ── */
+.perc-section{background:var(--surface);border:1px solid var(--purp-bd);border-radius:18px;padding:28px;margin-bottom:36px;position:relative;overflow:hidden}
+.perc-section::before{content:'';position:absolute;top:0;right:0;width:300px;height:300px;background:radial-gradient(circle,rgba(139,92,246,.08),transparent 70%);pointer-events:none}
+.perc-header{margin-bottom:22px}
+.perc-badge{display:inline-flex;align-items:center;gap:6px;background:var(--purp-bg);color:var(--purp);border:1px solid var(--purp-bd);border-radius:20px;font-size:10px;font-weight:700;padding:3px 12px;margin-bottom:8px}
+.perc-title{font-size:19px;font-weight:800;color:var(--text);margin-bottom:2px}
+.perc-sub{font-size:11px;color:var(--muted)}
+.likert-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:4px}
+.lk-card{background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:18px}
+.lk-title{font-size:12px;font-weight:700;color:var(--purp);margin-bottom:14px}
+.lk-list{display:flex;flex-direction:column;gap:10px}
+.lk-row{display:grid;grid-template-columns:1fr 130px 46px;align-items:center;gap:10px}
+.lk-lbl{font-size:10px;color:var(--muted);font-weight:500;line-height:1.3}
+.lk-track{height:8px;background:var(--surface3);border-radius:99px;overflow:hidden}
+.lk-fill{height:100%;border-radius:99px;transition:width 1.3s cubic-bezier(.16,1,.3,1)}
+.lk-val{font-size:11px;font-weight:700;font-family:var(--mono);text-align:right}
+
+/* ── PERC SUMMARY CARDS ── */
+.perc-sum{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:22px}
+.pscard{background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:16px}
+.psc-val{font-size:28px;font-weight:900;font-family:var(--mono);line-height:1}
+.psc-l{font-size:10px;color:var(--muted);margin-top:5px;line-height:1.3}
+
+/* ── TOP USERS ── */
+.top-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:36px}
+.tc{background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden}
+.tc-hdr{padding:12px 18px;border-bottom:1px solid var(--border)}
+.tc-hdr.b{background:var(--banca-bg);border-color:var(--banca-bd)}.tc-hdr.s{background:var(--seg-bg);border-color:var(--seg-bd)}
+.tc-hdr-t{font-size:13px;font-weight:700}.tc-hdr-t.b{color:var(--banca)}.tc-hdr-t.s{color:var(--seg)}
+.tc-hdr-s{font-size:10px;color:var(--muted);margin-top:2px}
+table{width:100%;border-collapse:collapse}
+th{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--dim);padding:9px 14px;text-align:left;background:var(--surface2);border-bottom:1px solid var(--border)}
+th:not(:first-child):not(:nth-child(2)){text-align:center}
+td{padding:10px 14px;border-bottom:1px solid var(--border);font-size:12px}
+td:not(:first-child):not(:nth-child(2)){text-align:center;font-family:var(--mono);font-size:11px;font-weight:600}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:var(--surface2)}
+.rk{width:26px;height:26px;border-radius:7px;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:11px}
+.r1{background:linear-gradient(135deg,#F6D860,#F0A500);color:#7C4A00}
+.r2{background:#E8E8E8;color:#555}.r3{background:#F0D4B0;color:#8B4513}
+.rn{background:#EEF0F8;color:#9AA0BB;font-family:var(--mono)}
+.uname{font-weight:700;font-size:11px;color:var(--text)}.udept{font-size:9px;color:var(--muted);margin-top:1px}
+.pbw{display:flex;align-items:center;gap:5px;justify-content:center}
+.pbt{height:4px;background:var(--surface3);border-radius:99px;overflow:hidden;width:44px}
+.pbf{height:100%;border-radius:99px}
+.dtag{font-size:9px;padding:2px 6px;border-radius:6px;font-weight:700}
+.d-ok{background:var(--gbg);color:var(--green)}.d-mid{background:var(--abg);color:var(--amber)}.d-low{background:var(--rbg);color:var(--red)}
+.tn-hi{color:var(--green)}.tn-md{color:var(--amber)}.tn-lo{color:var(--red)}
+
+/* ── INSIGHTS ── */
+.ins-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:14px}
+.ins-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.ins{background:var(--surface);border:1px solid var(--border);border-radius:13px;padding:18px 20px}
+.ins.bi{border-left:3px solid var(--banca)}.ins.si{border-left:3px solid var(--seg)}
+.ins-ico{font-size:20px;margin-bottom:8px}
+.ins-t{font-size:12px;font-weight:700;margin-bottom:5px;color:var(--text)}
+.ins-b{font-size:11px;color:var(--muted);line-height:1.65}
+.ins-lbl{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:1px 7px;border-radius:4px;margin-bottom:7px;display:inline-block}
+.il-b{background:var(--banca-bg);color:var(--banca);border:1px solid var(--banca-bd)}
+.il-s{background:var(--seg-bg);color:var(--seg);border:1px solid var(--seg-bd)}
+
+/* ── FOOTER ── */
+.footer{border-top:1px solid var(--border);padding:24px 48px;background:var(--surface);display:flex;justify-content:space-between;align-items:center;color:var(--dim);font-size:11px}
+.footer-logo{display:flex;align-items:center;gap:8px;font-weight:600;color:var(--muted)}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.fade-in{animation:fadeUp .5s ease forwards}
+
+@media(max-width:1024px){.hero-metrics,.kpi-group-headers,.kpi-pair,.stat-strip,.g2,.g3,.likert-grid,.perc-sum,.top-grid,.ins-grid,.ins-2,.ss-body{grid-template-columns:1fr}.hero-top{flex-direction:column}}
+</style>
+</head>
+<body>
+
+<!-- ═══ HERO ═══ -->
+<div class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-inner">
+    <div class="hero-top">
+      <div class="hero-brand">
+        <div class="hero-icon">🤖</div>
+        <div>
+          <div class="hero-name">Reporte de Adopción</div>
+          <div class="hero-title">Microsoft Copilot M365</div>
+          <div class="hero-period">
+            <span class="period-badge">📅 Últimos 30 días · hasta 09-06-2026</span>
+            <span class="period-badge" style="background:var(--purp-bg);color:var(--purp);border-color:var(--purp-bd)">📋 Encuesta de Percepción · 96 resp.</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-meta">
+        <div class="hero-date">Generado el 09 de junio de 2026</div>
+        <div class="hero-lic"><span>125</span> licencias Banca · <span class="s">58</span> licencias Seguros · <strong>183 total</strong></div>
+      </div>
+    </div>
+    <div class="hero-metrics">
+      <div class="hm blue fade-in" style="animation-delay:.05s">
+        <div class="hm-val blue">93.6%</div>
+        <div class="hm-label">Adopción Banca</div>
+        <div class="hm-note">117 / 125 licencias</div>
+      </div>
+      <div class="hm gold fade-in" style="animation-delay:.12s">
+        <div class="hm-val gold">98.3%</div>
+        <div class="hm-label">Adopción Seguros</div>
+        <div class="hm-note">57 / 58 licencias</div>
+      </div>
+      <div class="hm green fade-in" style="animation-delay:.19s">
+        <div class="hm-val green">17,005</div>
+        <div class="hm-label">Prompts totales · 30 días</div>
+        <div class="hm-note">Banca 13,791 · Seguros 4,214</div>
+      </div>
+      <div class="hm purp fade-in" style="animation-delay:.26s">
+        <div class="hm-val purp">80.2%</div>
+        <div class="hm-label">Perciben ahorro de tiempo</div>
+        <div class="hm-note">77 / 96 respondentes</div>
+      </div>
+      <div class="hm teal fade-in" style="animation-delay:.33s">
+        <div class="hm-val teal">72.9%</div>
+        <div class="hm-label">Perciben mejora en calidad</div>
+        <div class="hm-note">70 / 96 respondentes</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+<!-- ═══ KPIs USO ═══ -->
+<div class="slabel"><span class="slabel-icon">📊</span> KPIs de uso · últimos 30 días</div>
+<div class="kpi-master">
+  <div class="kpi-group-headers">
+    <div class="kgi b">🏦 Banca <span class="kgi-sub">125 licencias · 122 en reporte</span></div>
+    <div class="kgi s">🛡️ Seguros <span class="kgi-sub">58 licencias · 58 en reporte</span></div>
+  </div>
+
+  <!-- Adopción -->
+  <div class="kpi-pair">
+    <div class="kpc b">
+      <div class="kpc-dim">KPI 01 · Uso</div>
+      <div class="kpc-name">Adopción básica <span class="badge badge-ok" style="margin-left:6px">✓ Cumple</span></div>
+      <div class="kpc-desc">% de 125 licencias con al menos un prompt en los últimos 30 días · Meta ≥70%</div>
+      <div class="kpc-body">
+        <div class="kpc-val bv">93.6%</div>
+        <div class="kpc-right">
+          <div class="kpc-bar-track"><div class="kpc-bar bbar" data-w="93.6" style="width:0%"></div></div>
+          <div class="kpc-foot"><div class="kpc-note">103/125 activos</div><span class="badge badge-ok">+23.6pp sobre meta</span></div>
+        </div>
+      </div>
+      <div class="kpc-meta">▲ Máximo histórico de adopción en Banca</div>
+    </div>
+    <div class="kpc s">
+      <div class="kpc-dim">KPI 01 · Uso</div>
+      <div class="kpc-name">Adopción básica <span class="badge badge-ok" style="margin-left:6px">✓ Cumple</span></div>
+      <div class="kpc-desc">% de 58 licencias con al menos un prompt en los últimos 30 días · Meta ≥70%</div>
+      <div class="kpc-body">
+        <div class="kpc-val sv">98.3%</div>
+        <div class="kpc-right">
+          <div class="kpc-bar-track"><div class="kpc-bar sbar" data-w="98.3" style="width:0%"></div></div>
+          <div class="kpc-foot"><div class="kpc-note">57/58 activos</div><span class="badge badge-ok">+28.3pp sobre meta</span></div>
+        </div>
+      </div>
+      <div class="kpc-meta">▲ Prácticamente adopción total en Seguros</div>
+    </div>
+  </div>
+
+  <!-- Frecuencia -->
+  <div class="kpi-pair">
+    <div class="kpc b">
+      <div class="kpc-dim">KPI 02 · Uso</div>
+      <div class="kpc-name">Frecuencia recurrente <span class="badge badge-ok" style="margin-left:6px">✓ Cumple</span></div>
+      <div class="kpc-desc">% activos con ≥13 días de uso en 30 días (≡ ≥3 días/semana) · Meta ≥50%</div>
+      <div class="kpc-body">
+        <div class="kpc-val bv">54.7%</div>
+        <div class="kpc-right">
+          <div class="kpc-bar-track"><div class="kpc-bar bbar" data-w="54.7" style="width:0%"></div></div>
+          <div class="kpc-foot"><div class="kpc-note">64/117 activos</div><span class="badge badge-ok">+4.7pp sobre meta</span></div>
+        </div>
+      </div>
+      <div class="kpc-meta">64 usuarios con uso sostenido durante el mes</div>
+    </div>
+    <div class="kpc s">
+      <div class="kpc-dim">KPI 02 · Uso</div>
+      <div class="kpc-name">Frecuencia recurrente <span class="badge badge-no" style="margin-left:6px">⚠ Por debajo</span></div>
+      <div class="kpc-desc">% activos con ≥13 días de uso en 30 días (≡ ≥3 días/semana) · Meta ≥50%</div>
+      <div class="kpc-body">
+        <div class="kpc-val rv">36.8%</div>
+        <div class="kpc-right">
+          <div class="kpc-bar-track"><div class="kpc-bar sbar" data-w="36.8" style="width:0%"></div></div>
+          <div class="kpc-foot"><div class="kpc-note">21/57 activos</div><span class="badge badge-no">−13.2pp bajo meta</span></div>
+        </div>
+      </div>
+      <div class="kpc-meta">Alta adopción pero uso aún esporádico en mayoría</div>
+    </div>
+  </div>
+
+  <!-- Herramientas -->
+  <div class="kpi-pair">
+    <div class="kpc b">
+      <div class="kpc-dim">KPI 03 · Uso</div>
+      <div class="kpc-name">≥3 Herramientas Copilot <span class="badge badge-ok" style="margin-left:6px">✓ Cumple</span></div>
+      <div class="kpc-desc">% de usuarios en reporte usando 3 o más apps de Copilot · Meta ≥40%</div>
+      <div class="kpc-body">
+        <div class="kpc-val bv">95.9%</div>
+        <div class="kpc-right">
+          <div class="kpc-bar-track"><div class="kpc-bar bbar" data-w="95.9" style="width:0%"></div></div>
+          <div class="kpc-foot"><div class="kpc-note">117/122 en reporte</div><span class="badge badge-ok">+55.9pp sobre meta</span></div>
+        </div>
+      </div>
+      <div class="kpc-meta">Elisa Corona con 10/12 herramientas · máximo del grupo</div>
+    </div>
+    <div class="kpc s">
+      <div class="kpc-dim">KPI 03 · Uso</div>
+      <div class="kpc-name">≥3 Herramientas Copilot <span class="badge badge-ok" style="margin-left:6px">✓ Cumple</span></div>
+      <div class="kpc-desc">% de usuarios en reporte usando 3 o más apps de Copilot · Meta ≥40%</div>
+      <div class="kpc-body">
+        <div class="kpc-val sv">94.8%</div>
+        <div class="kpc-right">
+          <div class="kpc-bar-track"><div class="kpc-bar sbar" data-w="94.8" style="width:0%"></div></div>
+          <div class="kpc-foot"><div class="kpc-note">55/58 en reporte</div><span class="badge badge-ok">+54.8pp sobre meta</span></div>
+        </div>
+      </div>
+      <div class="kpc-meta">Rodrigo Marquez y Juan Carlos García con 10/12 herramientas</div>
+    </div>
+  </div>
+
+  <!-- Percepción -->
+  <div class="kpi-pair" style="background:rgba(139,92,246,.03)">
+    <div class="kpc perc-b">
+      <div class="kpc-dim" style="color:var(--purp)">KPI 04 · Percepción</div>
+      <div class="kpc-name">Ahorro de tiempo <span class="badge badge-ok" style="margin-left:6px">✓ Cumple</span></div>
+      <div class="kpc-desc">% respondentes con avg Likert ≥4 en 4 preguntas sobre velocidad y eficiencia · Meta ≥60%</div>
+      <div class="kpc-body">
+        <div class="kpc-val pv">80.2%</div>
+        <div class="kpc-right">
+          <div class="kpc-bar-track"><div class="kpc-bar pbar" data-w="80.2" style="width:0%"></div></div>
+          <div class="kpc-foot"><div class="kpc-note">77/96 respondentes · Banca 84.6% · Seguros 71.0%</div></div>
+        </div>
+      </div>
+      <div class="kpc-meta" style="color:var(--purp)">96 resp. de 183 licencias (52.5% tasa de respuesta)</div>
+    </div>
+    <div class="kpc perc-s">
+      <div class="kpc-dim" style="color:var(--purp)">KPI 05 · Percepción</div>
+      <div class="kpc-name">Mejora en calidad <span class="badge badge-ok" style="margin-left:6px">✓ Cumple</span></div>
+      <div class="kpc-desc">% respondentes con avg Likert ≥4 en 5 preguntas sobre calidad de entregables · Meta ≥50%</div>
+      <div class="kpc-body">
+        <div class="kpc-val pv">72.9%</div>
+        <div class="kpc-right">
+          <div class="kpc-bar-track"><div class="kpc-bar pbar" data-w="72.9" style="width:0%"></div></div>
+          <div class="kpc-foot"><div class="kpc-note">70/96 respondentes · Banca 80.0% · Seguros 58.1%</div></div>
+        </div>
+      </div>
+      <div class="kpc-meta" style="color:var(--purp)">35.4% ya recibió retroalimentación positiva del jefe</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ STATS ═══ -->
+<div class="slabel"><span class="slabel-icon">📈</span> Métricas complementarias · 30 días</div>
+<div class="stat-strip">
+  <div class="ss">
+    <div class="ss-hdr b">🏦 Banca</div>
+    <div class="ss-body">
+      <div class="ss-item"><div class="ss-v" style="color:var(--banca)">13,791</div><div class="ss-l">Prompts totales</div></div>
+      <div class="ss-item"><div class="ss-v" style="color:var(--teal)">117.9</div><div class="ss-l">Prom. prompts / activo</div></div>
+      <div class="ss-item"><div class="ss-v" style="color:var(--green)">13.1</div><div class="ss-l">Días activos promedio</div></div>
+      <div class="ss-item"><div class="ss-v" style="color:var(--amber)">105</div><div class="ss-l">Usuarios Chat (work)</div></div>
+    </div>
+  </div>
+  <div class="ss">
+    <div class="ss-hdr s">🛡️ Seguros</div>
+    <div class="ss-body">
+      <div class="ss-item"><div class="ss-v" style="color:var(--seg)">4,214</div><div class="ss-l">Prompts totales</div></div>
+      <div class="ss-item"><div class="ss-v" style="color:var(--teal)">73.9</div><div class="ss-l">Prom. prompts / activo</div></div>
+      <div class="ss-item"><div class="ss-v" style="color:var(--green)">10.0</div><div class="ss-l">Días activos promedio</div></div>
+      <div class="ss-item"><div class="ss-v" style="color:var(--amber)">45</div><div class="ss-l">Usuarios Chat (work)</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ CHARTS: ADOPCIÓN + FRECUENCIA ═══ -->
+<div class="slabel"><span class="slabel-icon">🔄</span> Comportamiento de uso · adopción y frecuencia</div>
+<div class="g3">
+  <div class="card">
+    <div class="ct">Los 5 KPIs · resumen comparativo</div>
+    <div class="cs">Resultado vs meta · Banca y Seguros</div>
+    <div class="carea" style="height:240px"><canvas id="chRadar"></canvas></div>
+  </div>
+  <div class="card">
+    <div class="ct">🏦 Banca · Segmentación por frecuencia</div>
+    <div class="cs">Distribución de 125 licencias · umbral recurrente ≥13 días en 30d</div>
+    <div class="carea" style="height:240px"><canvas id="chFreqB"></canvas></div>
+  </div>
+  <div class="card">
+    <div class="ct">🛡️ Seguros · Segmentación por frecuencia</div>
+    <div class="cs">Distribución de 58 licencias · umbral recurrente ≥13 días en 30d</div>
+    <div class="carea" style="height:240px"><canvas id="chFreqS"></canvas></div>
+  </div>
+</div>
+
+<!-- ═══ CHARTS: HERRAMIENTAS + ÁREA ═══ -->
+<div class="slabel"><span class="slabel-icon">🧰</span> ¿En qué se usa Copilot? · herramientas y áreas</div>
+<div class="g2">
+  <div class="card">
+    <div class="ct">🏦 Banca · % usuarios por herramienta</div>
+    <div class="cs">Aplicaciones activas en los últimos 30 días · 122 en reporte</div>
+    <div class="carea" style="height:280px"><canvas id="chToolsB"></canvas></div>
+  </div>
+  <div class="card">
+    <div class="ct">🛡️ Seguros · % usuarios por herramienta</div>
+    <div class="cs">Aplicaciones activas en los últimos 30 días · 58 en reporte</div>
+    <div class="carea" style="height:280px"><canvas id="chToolsS"></canvas></div>
+  </div>
+</div>
+<div class="g2">
+  <div class="card">
+    <div class="ct">🏦 Banca · Volumen de uso por área</div>
+    <div class="cs">Prompts totales generados en 30 días por área</div>
+    <div class="carea" style="height:290px"><canvas id="chAreaB"></canvas></div>
+  </div>
+  <div class="card">
+    <div class="ct">🛡️ Seguros · Volumen de uso por área</div>
+    <div class="cs">Prompts totales generados en 30 días por área</div>
+    <div class="carea" style="height:290px"><canvas id="chAreaS"></canvas></div>
+  </div>
+</div>
+
+<!-- ═══ PERCEPCIÓN ═══ -->
+<div class="slabel"><span class="slabel-icon">💜</span> KPIs de percepción · encuesta de adopción e impacto</div>
+<div class="perc-section">
+  <div class="perc-header">
+    <div class="perc-badge">💜 Encuesta Microsoft Forms · Autoaplicada</div>
+    <div class="perc-title">Percepción de Impacto · 96 respondentes</div>
+    <div class="perc-sub">Escala Likert 1–5 · Usuarios con promedio ≥4 (De acuerdo o Totalmente de acuerdo) cuentan como positivos · 52.5% tasa de respuesta sobre 183 licencias</div>
+  </div>
+
+  <div class="perc-sum">
+    <div class="pscard">
+      <div class="psc-val" style="color:var(--purp)">80.2%</div>
+      <div class="psc-l">Perciben ahorro de tiempo · ≥60% meta ✓</div>
+    </div>
+    <div class="pscard">
+      <div class="psc-val" style="color:var(--purp)">72.9%</div>
+      <div class="psc-l">Perciben mejora en calidad · ≥50% meta ✓</div>
+    </div>
+    <div class="pscard">
+      <div class="psc-val" style="color:var(--green)">60.4%</div>
+      <div class="psc-l">Usa Copilot casi diario (5+ días/sem)</div>
+    </div>
+    <div class="pscard">
+      <div class="psc-val" style="color:var(--amber)">35.4%</div>
+      <div class="psc-l">Ya recibió retroalimentación positiva del jefe</div>
+    </div>
+  </div>
+
+  <div class="likert-grid">
+    <div class="lk-card">
+      <div class="lk-title">⏱️ Ahorro de tiempo · % De acuerdo o Totalmente de acuerdo</div>
+      <div class="lk-list" id="lkTiempo"></div>
+    </div>
+    <div class="lk-card">
+      <div class="lk-title">📄 Mejora en calidad · % De acuerdo o Totalmente de acuerdo</div>
+      <div class="lk-list" id="lkCalidad"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ TOP USUARIOS ═══ -->
+<div class="slabel"><span class="slabel-icon">🏆</span> Top usuarios · últimos 30 días</div>
+<div class="top-grid">
+  <div class="tc">
+    <div class="tc-hdr b">
+      <div class="tc-hdr-t b">🏦 Banca · Top 10</div>
+      <div class="tc-hdr-s">117 activos · 13,791 prompts · 117.9 prom/activo · Apps sobre 12 herramientas</div>
+    </div>
+    <table><thead><tr><th>#</th><th>Usuario / Área</th><th>Prompts</th><th>Días</th><th>Apps</th></tr></thead>
+    <tbody id="topB"></tbody></table>
+  </div>
+  <div class="tc">
+    <div class="tc-hdr s">
+      <div class="tc-hdr-t s">🛡️ Seguros · Top 10</div>
+      <div class="tc-hdr-s">57 activos · 4,214 prompts · 73.9 prom/activo · Apps sobre 12 herramientas</div>
+    </div>
+    <table><thead><tr><th>#</th><th>Usuario / Área</th><th>Prompts</th><th>Días</th><th>Apps</th></tr></thead>
+    <tbody id="topS"></tbody></table>
+  </div>
+</div>
+
+<!-- ═══ CONCLUSIONES ═══ -->
+<div class="slabel"><span class="slabel-icon">💡</span> Conclusiones del período</div>
+<div class="ins-grid">
+  <div class="ins bi">
+    <div class="ins-lbl il-b">🏦 Banca</div>
+    <div class="ins-ico">🚀</div>
+    <div class="ins-t">Adopción de 93.6% — el mejor registro histórico</div>
+    <div class="ins-b">117 de 125 usuarios activos en los últimos 30 días. En perspectiva: al inicio del programa, la adopción era significativamente menor. Hoy solo 8 licencias sin uso — candidatos concretos para activación dirigida.</div>
+  </div>
+  <div class="ins bi">
+    <div class="ins-lbl il-b">🏦 Banca</div>
+    <div class="ins-ico">🔁</div>
+    <div class="ins-t">Frecuencia recurrente: primera vez que supera el 50%</div>
+    <div class="ins-b">54.7% de los activos usó Copilot ≥13 días en el mes — equivalente a ≥3 días/semana sostenidos. 64 usuarios con hábito consolidado. El promedio de 13.1 días activos en 30 días es una señal sólida de que Copilot ya forma parte del día a día.</div>
+  </div>
+  <div class="ins bi">
+    <div class="ins-lbl il-b">🏦 Banca</div>
+    <div class="ins-ico">💬</div>
+    <div class="ins-t">117.9 prompts por activo — intensidad notable</div>
+    <div class="ins-b">El promedio mensual de prompts por usuario activo en Banca es más de 4 veces el promedio semanal. Esto confirma uso constante, no puntual. RH Banca (5,774 prompts) y Dir. Ejec. Operaciones (1,639) son los motores del volumen.</div>
+  </div>
+</div>
+<div class="ins-2" style="margin-bottom:14px">
+  <div class="ins si">
+    <div class="ins-lbl il-s">🛡️ Seguros</div>
+    <div class="ins-ico">🎯</div>
+    <div class="ins-t">98.3% adopción — solo una licencia sin uso</div>
+    <div class="ins-b">Seguros tiene adopción prácticamente universal. El reto no es activar usuarios nuevos sino aumentar la intensidad: el promedio de 10.0 días activos en 30 días sugiere uso irregular. Convertir el segmento Exploratorio (19 usuarios) en Regular es la palanca de mejora más directa.</div>
+  </div>
+  <div class="ins si">
+    <div class="ins-lbl il-s">🛡️ Seguros</div>
+    <div class="ins-ico">⚠️</div>
+    <div class="ins-t">Frecuencia: la brecha más importante a cerrar</div>
+    <div class="ins-b">36.8% de frecuencia recurrente vs 50% de meta — la diferencia más significativa de todo el programa. Con solo 21 usuarios en zona recurrente vs 19 exploratorios, una acción de formación o acompañamiento focalizada podría mover ese número rápidamente.</div>
+  </div>
+</div>
+<div class="ins-2">
+  <div class="ins" style="border-left:3px solid var(--purp)">
+    <div class="ins-lbl" style="background:var(--purp-bg);color:var(--purp);border:1px solid var(--purp-bd)">💜 Percepción</div>
+    <div class="ins-ico">⏱️</div>
+    <div class="ins-t">80.2% percibe ahorro real de tiempo</div>
+    <div class="ins-b">Superando la meta del 60% por 20 puntos. Las cuatro preguntas de eficiencia superan el 82% de acuerdo. El 51% estima ahorrar 1+ horas por semana. Banca (84.6%) y Seguros (71.0%) ambos por encima de la meta — resultado especialmente sólido para el primer ciclo de medición.</div>
+  </div>
+  <div class="ins" style="border-left:3px solid var(--purp)">
+    <div class="ins-lbl" style="background:var(--purp-bg);color:var(--purp);border:1px solid var(--purp-bd)">💜 Percepción</div>
+    <div class="ins-ico">📄</div>
+    <div class="ins-t">72.9% reporta mejores entregables</div>
+    <div class="ins-b">22.9 puntos sobre la meta del 50%. La claridad y calidad general alcanzan 86.5% en Banca. El 35.4% ya recibió retroalimentación positiva de su jefe inmediato — validación externa del impacto. El 47.7% aún no ha recibido retroalimentación: oportunidad para que los líderes refuercen el cambio.</div>
+  </div>
+</div>
+
+</div><!-- /wrap -->
+
+<div class="footer">
+  <div class="footer-logo">🤖 Microsoft Copilot M365 · Reporte de Adopción · Junio 2026</div>
+  <div>183 licencias activas · 5 KPIs medidos · Datos: Microsoft Admin Center + Encuesta Forms</div>
+</div>
+
+<script>
+Chart.defaults.font.family="'Inter',sans-serif"; Chart.defaults.color='#5A6080';
+const tip={backgroundColor:'#161B22',titleColor:'#E6EDF3',bodyColor:'#8B949E',
+           padding:10,cornerRadius:8,borderColor:'#30363D',borderWidth:1};
+const tk={size:10,family:"'Inter',sans-serif"};
+const grid='rgba(0,0,0,.06)';
+const lp={padding:{top:16,right:20,bottom:8,left:8}};
+const C={b:'#3B82F6',s:'#F59E0B',g:'#10B981',p:'#8B5CF6',t:'#06B6D4'};
+
+// ── Radar (5 KPIs)
+new Chart(document.getElementById('chRadar'),{type:'radar',
+  data:{labels:['Adopción','Frecuencia','Herramientas','Ahorro tiempo','Mejora calidad'],
+    datasets:[
+      {label:'🏦 Banca',data:[93.6,54.7,95.9,84.6,80.0],borderColor:C.b,backgroundColor:C.b+'22',borderWidth:2,pointBackgroundColor:'#fff',pointBorderColor:C.b,pointRadius:4},
+      {label:'🛡️ Seguros',data:[98.3,36.8,94.8,71.0,58.1],borderColor:C.s,backgroundColor:C.s+'22',borderWidth:2,pointBackgroundColor:'#fff',pointBorderColor:C.s,pointRadius:4},
+      {label:'Meta',data:[70,50,40,60,50],borderColor:'#484F58',backgroundColor:'transparent',borderWidth:1,borderDash:[4,4],pointRadius:0},
+    ]},
+  options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{position:'bottom',labels:{boxWidth:12,padding:12,font:{size:11}}},tooltip:tip},
+    scales:{r:{min:0,max:100,ticks:{stepSize:25,backdropColor:'transparent',color:'#9AA0BB',font:{size:9}},grid:{color:'rgba(0,0,0,.06)'},pointLabels:{color:'#5A6080',font:{size:10}}}}}
+});
+
+// ── Donuts Freq
+const freqColors=['#EF444466','#F59E0B99','#10B98199','#10B981'];
+const freqLabels=['Sin uso (0d)','Exploratorio 1-6d','Regular 7-12d','Recurrente ≥13d'];
+function donut(id,data,pct1,pct2,pct3,pct4){
+  new Chart(document.getElementById(id),{type:'doughnut',
+    data:{labels:freqLabels,datasets:[{data,backgroundColor:freqColors,borderWidth:1,borderColor:'#161B22',hoverOffset:6}]},
+    options:{responsive:true,maintainAspectRatio:false,cutout:'62%',
+      layout:{padding:{top:8,bottom:8}},
+      plugins:{legend:{position:'bottom',labels:{boxWidth:12,padding:6,font:{size:9},color:'#8B949E'}},
+               tooltip:{...tip,callbacks:{label:c=>` ${c.label}: ${c.raw} usuarios`}}}}
+  });
+}
+donut('chFreqB',[8,26,27,64]);
+donut('chFreqS',[1,19,17,21]);
+
+// ── Tools
+const toolLabels=['Chat\n(work)','Teams','Outlook','Word','PPT','Excel','Chat\n(web)','M365\nApp','Loop','Edge','Agent','OneNote'];
+function toolChart(id,data,color){
+  new Chart(document.getElementById(id),{type:'bar',
+    data:{labels:toolLabels,datasets:[{label:'% usuarios',data,
+      backgroundColor:color+'88',borderColor:color,borderWidth:1,borderRadius:5,borderSkipped:false}]},
+    options:{responsive:true,maintainAspectRatio:false,
+      layout:{padding:{top:16,right:12,bottom:8,left:8}},
+      plugins:{legend:{display:false},tooltip:{...tip,callbacks:{label:c=>` ${c.raw}% de usuarios`}}},
+      scales:{y:{min:0,max:110,ticks:{callback:v=>v+'%',font:tk,stepSize:20},grid:{color:grid},border:{display:false}},
+              x:{ticks:{font:{size:8,family:"'Inter',sans-serif"},maxRotation:35},grid:{display:false},border:{display:false}}}}
+  });
+}
+toolChart('chToolsB',[93.4,94.3,87.7,78.7,77.0,67.2,68.0,59.0,32.8,18.9,18.0,0.8],C.b);
+toolChart('chToolsS',[86.2,98.3,81.0,72.4,63.8,69.0,65.5,44.8,13.8,31.0,1.7,3.4],C.s);
+
+// ── Area charts
+function areaChart(id,labels,data,color){
+  new Chart(document.getElementById(id),{type:'bar',
+    data:{labels,datasets:[{label:'Prompts',data,backgroundColor:color+'77',borderColor:color,borderWidth:1,borderRadius:5,borderSkipped:false}]},
+    options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',
+      layout:{padding:{top:8,right:24,bottom:8,left:8}},
+      plugins:{legend:{display:false},tooltip:{...tip,callbacks:{label:c=>` ${c.raw.toLocaleString()} prompts`}}},
+      scales:{x:{ticks:{font:tk},grid:{color:grid},border:{display:false}},
+              y:{ticks:{font:{size:9,family:"'Inter',sans-serif"}},grid:{display:false},border:{display:false}}}}
+  });
+}
+areaChart('chAreaB',
+  ['RH Banca','Dir. Ejec. Op. Procesos','Des. Servicios Bancarios','Dir. Seg. Inteligencia','Banca Riesgos IDR','Arquitectura TI','Inmobiliario','Dir. Seg. Información'],
+  [5774,1639,1360,1064,573,457,364,359],C.b);
+areaChart('chAreaS',
+  ['Seguros Oferta de Valor','Seguros Casos QA','Dir. Seg. Inteligencia','Admón. Operaciones','Seguros Casos RH','Dir. Adm. Indemn.','Seguros Téc. Daños','Administración'],
+  [1327,1053,509,341,275,222,137,113],C.s);
+
+// ── Likert
+const lkTiempo=[
+  {lbl:'Termina más rápido actividades habituales',b:82.3,s:74.2},
+  {lbl:'Reduce tiempo en redactar / resumir',b:89.6,s:83.9},
+  {lbl:'Disminuye retrabajo y correcciones',b:89.6,s:83.9},
+  {lbl:'Avanza más rápido en tareas habituales',b:83.3,s:77.4},
+];
+const lkCalidad=[
+  {lbl:'Documentos con mejor claridad',b:86.5,s:77.4},
+  {lbl:'Entregables más completos',b:81.2,s:74.2},
+  {lbl:'Entregables mejor estructurados',b:83.3,s:74.2},
+  {lbl:'Reduce errores e inconsistencias',b:85.4,s:80.6},
+  {lbl:'Calidad general mejorada',b:86.5,s:77.4},
+];
+function renderLikert(id,data){
+  const el=document.getElementById(id);
+  data.forEach(d=>{
+    const maxW=Math.max(d.b,d.s);
+    el.innerHTML+=`<div class="lk-row">
+      <div class="lk-lbl">${d.lbl}</div>
+      <div>
+        <div class="lk-track" style="margin-bottom:3px"><div class="lk-fill" data-w="${d.b/maxW*100}" style="width:0%;background:${C.b}"></div></div>
+        <div class="lk-track"><div class="lk-fill" data-w="${d.s/maxW*100}" style="width:0%;background:${C.s}"></div></div>
+      </div>
+      <div><div class="lk-val" style="color:${C.b}">${d.b}%</div><div class="lk-val" style="color:${C.s};margin-top:3px">${d.s}%</div></div>
+    </div>`;
+  });
+  // Legend
+  el.innerHTML+=`<div style="display:flex;gap:12px;margin-top:10px;font-size:9px;color:var(--muted)">
+    <span><span style="display:inline-block;width:8px;height:8px;background:${C.b};border-radius:50%;margin-right:4px"></span>Banca</span>
+    <span><span style="display:inline-block;width:8px;height:8px;background:${C.s};border-radius:50%;margin-right:4px"></span>Seguros</span>
+  </div>`;
+}
+renderLikert('lkTiempo',lkTiempo);
+renderLikert('lkCalidad',lkCalidad);
+
+// ── Top users
+const topBanca=[
+  {n:'Yessenia G. Avitia Becerra',   a:'Dir. Seg. e Inteligencia',      p:505,d:22,t:8},
+  {n:'Julissa M. Sampayo Beltran',   a:'RH Banca',                      p:494,d:24,t:7},
+  {n:'Katya Hernandez Garces',       a:'RH Banca',                      p:337,d:18,t:7},
+  {n:'Luz Elena Torres Martinez',    a:'RH Banca',                      p:327,d:24,t:7},
+  {n:'Alexis R. Martinez Gonzalez',  a:'Arquitectura TI',               p:323,d:6, t:4},
+  {n:'Clara E. Hernandez Espronceda',a:'Banca Riesgos IDR',             p:318,d:23,t:8},
+  {n:'Marcela P. Azuela Rivera',     a:'RH Banca',                      p:295,d:20,t:9},
+  {n:'Elisa Corona Riojas',          a:'RH Banca',                      p:283,d:22,t:10},
+  {n:'Everardo Garcia Tovar',        a:'Dir. Ejec. Op. y Procesos',     p:278,d:19,t:9},
+  {n:'Jose M. Gutierrez Rodriguez',  a:'Dir. General Crédito SI',       p:272,d:21,t:5},
+];
+const topSeguros=[
+  {n:'Rodrigo Marquez Leaños',            a:'Seguros Casos QA',          p:883,d:25,t:10},
+  {n:'Jazmin Melchor Gonzalez',           a:'Seguros Oferta de Valor',   p:333,d:21,t:9},
+  {n:'Juan Carlos García Leal',           a:'Seguros Oferta de Valor',   p:240,d:25,t:10},
+  {n:'Jose A. Rodriguez Rodriguez',       a:'Dir. Seg. e Inteligencia',  p:191,d:16,t:9},
+  {n:'Andres G. Flores Villarreal',       a:'Seguros Casos RH',          p:151,d:21,t:7},
+  {n:'Octavio A. Garcia Aguilera',        a:'Dir. Seg. e Inteligencia',  p:150,d:18,t:9},
+  {n:'Jose Luis Avila Varela',            a:'Dir. Adm. Indemnizaciones', p:139,d:16,t:3},
+  {n:'Luis Carlos Vega Lopez',            a:'Seguros Téc. Daños',        p:137,d:14,t:6},
+  {n:'Jose F. Badillo Giordani',          a:'Admón. Operaciones',        p:125,d:16,t:6},
+  {n:'Jose Luis Garcia Alvarez',          a:'Dir. Seg. e Inteligencia',  p:116,d:15,t:8},
+];
+function medal(i){const c=i===0?'r1':i===1?'r2':i===2?'r3':'rn';const t=i===0?'🥇':i===1?'🥈':i===2?'🥉':String(i+1);return `<span class="rk ${c}">${t}</span>`;}
+function dtag(d){const c=d>=20?'d-ok':d>=13?'d-mid':'d-low';return `<span class="dtag ${c}">${d}d</span>`;}
+function tn(t){const c=t>=8?'tn-hi':t>=5?'tn-md':'tn-lo';return `<span class="${c}" style="font-family:var(--mono);font-size:10px;font-weight:700">${t}/12</span>`;}
+function renderTop(id,data,maxP,color){
+  const tb=document.getElementById(id);
+  data.forEach((u,i)=>{
+    const w=Math.round(u.p/maxP*100);
+    tb.innerHTML+=`<tr><td>${medal(i)}</td><td><div class="uname">${u.n}</div><div class="udept">${u.a}</div></td><td><div class="pbw"><div class="pbt"><div class="pbf" style="width:${w}%;background:${color}"></div></div><span style="font-family:var(--mono);font-size:11px;font-weight:700">${u.p}</span></div></td><td>${dtag(u.d)}</td><td>${tn(u.t)}</td></tr>`;
+  });
+}
+renderTop('topB',topBanca,505,C.b);
+renderTop('topS',topSeguros,883,C.s);
+
+// ── Sync + animate
+window.addEventListener('load',()=>{
+  setTimeout(()=>{
+    document.querySelectorAll('[data-w]').forEach(el=>el.style.width=el.dataset.w+'%');
+    // Sync KPI pair heights
+    document.querySelectorAll('.kpi-pair').forEach(row=>{
+      const cells=row.querySelectorAll('.kpc');
+      if(cells.length>=2){
+        cells.forEach(c=>c.style.minHeight='');
+        const h=Math.max(...[...cells].map(c=>c.offsetHeight));
+        cells.forEach(c=>c.style.minHeight=h+'px');
+      }
+    });
+  },350);
+});
+</script>
+</body>
+</html>
